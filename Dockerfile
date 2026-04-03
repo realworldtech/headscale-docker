@@ -4,7 +4,8 @@ ARG HEADSCALE_REPO=https://github.com/realworldtech/headscale.git
 ARG HEADSCALE_REF=feature/suggest-exit-nodes
 
 WORKDIR /build
-RUN git clone --depth 1 --branch ${HEADSCALE_REF} ${HEADSCALE_REPO} . \
+RUN git clone --branch ${HEADSCALE_REF} ${HEADSCALE_REPO} . \
+    && git fetch --tags https://github.com/juanfont/headscale.git \
     && CGO_ENABLED=0 go build -o headscale ./cmd/headscale/
 
 FROM gcr.io/distroless/base-debian12
